@@ -9,7 +9,6 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="function")
 def browser(request):
-
     language = request.config.getoption("language")
     options = webdriver.ChromeOptions()
     options.add_argument(f"--lang={language}")
