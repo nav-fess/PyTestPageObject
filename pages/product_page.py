@@ -5,14 +5,12 @@ import time
 
 class ProductPage(BasePage):
     def click_to_button_busket(self):
-        time.sleep(3)
-        button = self.browser.find_element(*ProductPageLocators.FORM_BASKET) 
+        button = self.wait_element(*ProductPageLocators.FORM_BASKET) 
         button.click()
 
     def text_product_name_and_prise(self, number_attribute):
-        text_name_and_prise = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
-        product_name_and_price = self.browser.find_elements(*ProductPageLocators.PRODUCT_NAME_START)
-        attribute_value = product_name_and_price[number_attribute].text
+        text_name_and_prise = self.wait_element(*ProductPageLocators.PRODUCT_NAME).text
+        attribute_value = self.browser.find_elements(*ProductPageLocators.PRODUCT_NAME_START)[number_attribute].text
             
         return (attribute_value, text_name_and_prise)
 
