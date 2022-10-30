@@ -18,7 +18,7 @@ class BasePage():
         time.sleep(3)
 
 
-    def is_element_present(*param):	
+    def is_element_present(self, *param):	
         try:
             self.wait_element(*param)
         except NoSuchElementException:
