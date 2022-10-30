@@ -1,4 +1,5 @@
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -17,16 +18,16 @@ class BasePage():
         time.sleep(3)
 
 
-    def is_element_present(self, how, what):	
+    def is_element_present(*param):	
         try:
-            self.wait_element(how, what)
+            self.wait_element(*param)
         except NoSuchElementException:
             return False
         return True
      
 
     def wait_element(self, *param, pause = 2):
-        time.sleep(pause)
+        time.sleep(int(pause))
         return self.browser.find_element(*param)
         
    
@@ -48,3 +49,19 @@ class BasePage():
         except NoAlertPresentException:
             print("No second alert presented")'''
 
+
+    def is_not_element_present(self, *param, timeout=4):
+        try:
+            WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((param[0],param[1])))
+        except TimeoutException:
+            return True
+
+        return False
+
+        
+    def is_disappeared(self, *param, timeout=4):
+        try:
+            WebDriverWait(self.browser, timeout, 1, TimeoutException).until_not(EC.presence_of_element_located((param[0],param[1])))
+        except TimeoutException:
+            return False
+        return True
