@@ -3,14 +3,34 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from .locators import BasePageLocators
+from .locators import ProductPageLocators
+from .locators import MainPageLocators
 import time
 import math
 
 class BasePage():
-    def __init__(self, browser, url, timeout=10):
+    def __init__(self, browser, url, timeout=7):
         self.browser = browser
         self.url = url
         self.browser.implicitly_wait(timeout)
+
+
+    def click_to_button_busket(self):
+        button = self.wait_element(*ProductPageLocators.FORM_BASKET).click()
+	
+   		    
+    def click_to_view_busket(self):
+        button = self.wait_element(*MainPageLocators.VIEW_BASKET).click()
+	
+
+    def go_to_login_page(self):
+        rezult = self.browser.find_element(*BasePageLocators.LOGIN_LINK).click()
+        assert rezult == None , "not click on link"
+        
+
+    def should_be_login_link(self):
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"  
 
 
     def open(self):

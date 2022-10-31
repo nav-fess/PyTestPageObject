@@ -4,11 +4,6 @@ from .locators import ProductPageLocators
 import time
 
 class ProductPage(BasePage):
-    def click_to_button_busket(self):
-        button = self.wait_element(*ProductPageLocators.FORM_BASKET) 
-        button.click()
-
-
     def text_product_name_and_prise(self, number_attribute):
         text_name_and_prise = self.wait_element(*ProductPageLocators.PRODUCT_NAME).text
         attribute_value = self.browser.find_elements(*ProductPageLocators.PRODUCT_NAME_START)[number_attribute].text
@@ -29,11 +24,10 @@ class ProductPage(BasePage):
 
 
     def should_not_be_success_message(self):
-        rezult =  self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE)
-        print(f"rezult = {rezult}")
-        assert rezult,"Success message is presented"
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE),"Success message is presented"
 
 
     def should_is_disappeared_message(self):
-        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE),"Success message is presented"      
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE),"Success message is presented"
+      
 
