@@ -4,12 +4,9 @@ import time
 
 
 class LoginPage(BasePage):
-
-    def register_new_user(self, email, password):
-        self.input_registered_user_email(email)
-        self.input_registered_user_pass(password)
-        self.input_repeat_registered_user_pass(password)
-        self.click_button_registration()
+    def click_button_registration(self):
+        click = self.wait_element(*LoginPageLocators.BUTTON_REGISTRATION).click()
+        assert click == None, "not click on button registration"
 
 
     def input_registered_user_email(self, email):
@@ -24,14 +21,18 @@ class LoginPage(BasePage):
         self.wait_element(*LoginPageLocators.PASS_REGISTRATION_REPEAT).send_keys(password)
 
 
-    def click_button_registration(self):
-        self.wait_element(*LoginPageLocators.BUTTON_REGISTRATION).click()
-
+    def register_new_user(self, email, password):
+        self.input_registered_user_email(email)
+        self.input_registered_user_pass(password)
+        self.input_repeat_registered_user_pass(password)
+        self.click_button_registration()
+    
 
     def should_be_login_page(self):
         self.should_be_login_url()
         self.should_be_login_form()
         self.should_be_register_form()
+
 
     def should_be_login_url(self):
         assert 'login' in self.browser.current_url, "link doesn`t contain 'login'"

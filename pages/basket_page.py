@@ -1,13 +1,5 @@
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from .locators import BasePageLocators
-from .locators import ProductPageLocators
 from .locators import MainPageLocators
 from .base_page import BasePage
-import time
 
 
 class BasketPage(BasePage):
